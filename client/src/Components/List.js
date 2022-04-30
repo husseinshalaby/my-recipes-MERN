@@ -5,8 +5,6 @@ import Item from './Item';
 import axios from 'axios';
 
 const List = ({list, getList}) => {
-
-  // const [items, setItems] = useState([]);
   const link = '/api/recipes';
   const [items, setItems] = useState([]);
 
@@ -23,10 +21,6 @@ const List = ({list, getList}) => {
   useEffect(() =>{
     getList();
 }, [])
-  // useEffect(() =>{
-  //   setItems(list)
-  //   console.log('list', list)
-  // }, [])
 
   const renderItem = () => {
     console.log('items', items)

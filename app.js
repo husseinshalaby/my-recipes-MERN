@@ -32,7 +32,6 @@ app.use((req, res, next) =>{
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//Import Router Middlewares
 //Route
 app.use('/api/recipes', router)
 
