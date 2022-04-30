@@ -16,7 +16,7 @@ function Item({item, getList, editItem, update}) {
       },[])
     const deleteItem = async () =>{
         try {
-            await axios.delete(`http://localhost:5000/api/recipes/${item._id}`)
+            await axios.delete(`/api/recipes/${item._id}`)
             getList();
         } catch (error) {
             console.log(error)

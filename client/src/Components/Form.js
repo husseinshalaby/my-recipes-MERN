@@ -5,7 +5,7 @@ import '../App.css';
 import {useLocation} from 'react-router-dom';
 
 function Form() {
-    const link = 'http://localhost:5000/api/recipes';
+    const link = '/api/recipes';
     const [itemName, setItemName] = useState('')
     const [itemComment, setItemComment] = useState('')
     const [recipe, setRecipe] = useState('')
@@ -55,7 +55,7 @@ function Form() {
                 await axios.post(link, formData)
             }else{
                 setSubmitted(true)
-                await axios.patch(`http://localhost:5000/api/recipes/${editItemData._id}`, formData)
+                await axios.patch(`/api/recipes/${editItemData._id}`, formData)
             }
         } catch (error) {
             console.log(error)

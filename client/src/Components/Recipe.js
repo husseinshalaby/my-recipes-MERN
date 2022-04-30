@@ -9,7 +9,7 @@ import {Navigate, useNavigate} from 'react-router-dom';
 import '../App.css'
 
 function Recipe({items}) {
-  const link = 'http://localhost:5000/api/recipes';
+  const link = '/api/recipes';
   const[item, setItem] = useState({})
   const [toHome, setToHome] = useState(false)
   let {id} = useParams();
@@ -24,7 +24,7 @@ useEffect(() =>{
 
 const deleteItem = async () =>{
     try {
-        await axios.delete(`http://localhost:5000/api/recipes/${item._id}`)
+        await axios.delete(`/api/recipes/${item._id}`)
         console.log('deleted')
         setToHome(true)
     } catch (error) {

@@ -7,7 +7,7 @@ import axios from 'axios';
 const List = ({list, getList}) => {
 
   // const [items, setItems] = useState([]);
-  const link = 'http://localhost:5000/api/recipes';
+  const link = '/api/recipes';
   const [items, setItems] = useState([]);
 
   async function getList(){
