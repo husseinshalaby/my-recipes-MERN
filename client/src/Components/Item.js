@@ -31,6 +31,7 @@ function Item({item, getList, editItem, update}) {
         )
     }
     const renderImage =() => {
+        if(!item.image) return null
         if (item.image){
             const Image = require(`../img/${item.image}`) 
             return (

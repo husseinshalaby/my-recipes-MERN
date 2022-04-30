@@ -44,6 +44,7 @@ const handleEditItem = (item) => {
         return <Navigate to='/'/>
     }
     const renderImage =() => {
+        if(!item.image) return null
         if (item.image){
             const Image = require(`../img/${item.image}`) 
             return (
