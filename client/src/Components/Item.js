@@ -30,15 +30,15 @@ function Item({item, getList, editItem, update}) {
             </div>
         )
     }
-    const renderImage =() => {
-        if(!item.image) return null
-        if (item.image){
-            const Image = require(`../img/${item.image}`) 
-            return (
-                <img src={Image} className='image'/> 
-            )
-        }
-    }
+    // const renderImage =() => {
+    //     if(!item.image) return null
+    //     if (item.image){
+    //         const Image = require(`../img/${item.image}`) 
+    //         return (
+    //             <img src={Image} className='image'/> 
+    //         )
+    //     }
+    // }
  
         return (
             <ItemStyled  data-aos ='fade-up'>
@@ -61,7 +61,7 @@ function Item({item, getList, editItem, update}) {
                         </div>
                         <div className="right-text">
                             <h3>Image</h3>
-                            {renderImage()}
+                            {/* {renderImage()} */}
                         </div>
                     </div>
                 </Link>
