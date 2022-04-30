@@ -38,20 +38,6 @@ if(process.env.NODE_ENV === 'production'){
         res.sendFile(path.resolve(__dirname, 'client','build', 'index.html'))
     })
 }
-// app.listen(process.env.PORT || 3000, function(){
-//     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-//   });
-
-// var port_number = app.listen(process.env.PORT || 5000);
-// app.listen(port_number);
-// app.listen(process.env.PORT || 5000)
-//Connection
-var reqTimer = setTimeout(function wakeUp() {
-    request("https://radiant-fjord-33580.herokuapp.com/", function() {
-       console.log("HEROKU");
-    });
-    return reqTimer = setTimeout(wakeUp, 1200000);
- }, 1200000);
 
 const start = async () =>{
     try {
