@@ -10,7 +10,6 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 
 function Item({item, getList, editItem, update}) {
-    const Image = require(`../img/${item.image ? item.image: '2.png'}`) 
     useEffect(()=>{
         Aos.init({ duration: 1000});
       },[])
@@ -31,20 +30,16 @@ function Item({item, getList, editItem, update}) {
             </div>
         )
     }
-    // if (item.image){
+    const renderImage =() => {
+        if (item.image){
+            const Image = require(`../img/${item.image}`) 
+            return (
+                <img src={Image} className='image'/> 
+            )
+        }
+    }
+ 
         return (
-        //     <div>
-        //     <Card className = 'card'>
-        //       <Link className = "itemName"to={`/list/${item._id}`}><div id='card-img'><Card.Img variant="top" src={Image} /></div></Link>
-        //       <Card.Body>
-        //         <Link className = "itemName" to={`/list/${item._id}`}><Card.Title>{item.name}</Card.Title></Link>
-        //         <Card.Text>
-        //           {item.ingredients}
-        //         </Card.Text>
-        //         <br/>
-        //       </Card.Body>
-        //     </Card>
-        //   </div>
             <ItemStyled  data-aos ='fade-up'>
                 <Link className = "itemName" to={`/list/${item._id}`}>
                     <div className="icon-document">
@@ -65,7 +60,7 @@ function Item({item, getList, editItem, update}) {
                         </div>
                         <div className="right-text">
                             <h3>Image</h3>
-                            <img src={Image ? Image: deleteIcon} className='image'/> 
+                            {renderImage()}
                         </div>
                     </div>
                 </Link>
