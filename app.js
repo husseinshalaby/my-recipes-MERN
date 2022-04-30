@@ -5,7 +5,11 @@ const connectDb = require('./db/connect');
 var cors = require('cors')
 const path = require('path')
 
-app.use(cors())
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "PATCH", "DELETE" ],
+    credentials: true
+}))
 //Require dotenv
 require('dotenv').config();
 
