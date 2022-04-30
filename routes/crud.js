@@ -5,7 +5,7 @@ const Crud = require('./../models/crud');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, '../client/src/img');
+    cb(null, './client/src/img');
   },
   filename: function(req, file, cb) {
     cb(null, file.originalname);
