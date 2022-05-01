@@ -27,7 +27,6 @@ function Form() {
         setItemName('');
         setItemIngredients('');
         setRecipe('');
-        setImage('')
       }, [submitted])
 
     useEffect(() =>{
@@ -69,7 +68,9 @@ function Form() {
       };
 
     async function addItems(e) {
-        uploadFiles(image);
+        console.log('e',e)
+        const file = e.target[4].files[0]
+        uploadFiles(file);
         e.preventDefault();
         let formData = new FormData()
         formData.append('image', image)
