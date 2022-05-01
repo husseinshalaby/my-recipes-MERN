@@ -27,7 +27,7 @@ function Form() {
         setItemName('');
         setItemIngredients('');
         setRecipe('');
-        setImage(null)
+        setImage('')
       }, [submitted])
 
     useEffect(() =>{
@@ -35,7 +35,7 @@ function Form() {
             setItemName(editItemData.name ? editItemData.name : '')
             setItemIngredients(editItemData.ingredients ? editItemData.ingredients : '')
             setRecipe(editItemData.recipe ? editItemData.recipe : '')
-            setImage(editItemData.image ? editItemData.image : null)
+            setImage(editItemData.image ? editItemData.image : '')
         }
     },[editItemData])
 
@@ -62,20 +62,20 @@ function Form() {
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               console.log("File available at", downloadURL);
-              setImageURL(downloadURL)
+              setImage(downloadURL)
             });
           }
         );
       };
 
     async function addItems(e) {
+        uploadFiles(image);
         e.preventDefault();
         let formData = new FormData()
-        formData.append('image', imageURL)
+        formData.append('image', image)
         formData.append('name', itemName)
         formData.append('ingredients', itemIngredients)
         formData.append('recipe', recipe)
-        uploadFiles(image);
         setProgress(0)
         try {   
             if(!editItemData){
@@ -137,7 +137,7 @@ function Form() {
                         className= 'image-input'
                         onChange={(e) => setImage(e.target.files[0])}
                         />
-                    <p>Uploading done {progress}%</p>
+                    <span>Uploading {progress}%</span>
 
                 </div>
                 <button  className="submit-btn">Add Item</button>
