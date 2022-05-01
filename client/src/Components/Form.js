@@ -23,10 +23,6 @@ function Form() {
         }
     }, [])
 
-    // useEffect(()=>{
-    //    
-    // }, [imageUploaded])
-    
     useEffect(() => {
         setItemName('');
         setItemIngredients('');
@@ -48,7 +44,7 @@ function Form() {
         setEditItemData(itemsData);
     }
 
-    const uploadFiles = (file) => {
+    const uploadFiles = async(file) => {
         
         if (!file) return;
         const sotrageRef = ref(storage, `files/${file.name}`);
@@ -66,10 +62,11 @@ function Form() {
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               console.log("File available at", downloadURL);
-              setImage(downloadURL, () =>  addItems())
-              setImageUploaded(true)
-            //   addItems()
+              await setImage(downloadURL)
+            //   setImageUploaded(true)
             console.log('image', image)
+
+              addItems()
             });
           }
         );
