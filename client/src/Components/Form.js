@@ -69,7 +69,7 @@ function Form() {
 
     async function addItems(e) {
         console.log('e',e)
-        const file = e.target[4].files[0]
+        const file = e.target[3].files[0]
         uploadFiles(file);
         e.preventDefault();
         let formData = new FormData()
