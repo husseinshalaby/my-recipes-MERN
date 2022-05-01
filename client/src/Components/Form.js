@@ -3,17 +3,20 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import '../App.css';
 import {useLocation} from 'react-router-dom';
+import { storage } from "../firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from '@firebase/storage';
 
 function Form() {
     const link = '/api/recipes';
     const [itemName, setItemName] = useState('')
-    const [itemComment, setItemComment] = useState('')
+    const [itemIngredients, setItemIngredients] = useState('')
     const [recipe, setRecipe] = useState('')
     const [image, setImage] = useState('')
     const [editItemData, setEditItemData] = useState(null)
     const [submitted, setSubmitted] = useState(false)
     const location = useLocation()
-    
+    const [progress, setProgress] = useState(0)
+    const [imageURL, setImageURL] = useState('')
     useEffect(() =>{
         if(location.state){
             editItem(location.state.data)
@@ -22,7 +25,7 @@ function Form() {
     
     useEffect(() => {
         setItemName('');
-        setItemComment('');
+        setItemIngredients('');
         setRecipe('');
         setImage(null)
       }, [submitted])
@@ -30,7 +33,7 @@ function Form() {
     useEffect(() =>{
         if(editItemData){
             setItemName(editItemData.name ? editItemData.name : '')
-            setItemComment(editItemData.ingredients ? editItemData.ingredients : '')
+            setItemIngredients(editItemData.ingredients ? editItemData.ingredients : '')
             setRecipe(editItemData.recipe ? editItemData.recipe : '')
             setImage(editItemData.image ? editItemData.image : null)
         }
@@ -41,14 +44,39 @@ function Form() {
         setEditItemData(itemsData);
     }
 
+    const uploadFiles = (file) => {
+        
+        if (!file) return;
+        const sotrageRef = ref(storage, `files/${file.name}`);
+        const uploadTask = uploadBytesResumable(sotrageRef, file);
+    
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const prog = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            setProgress(prog);
+          },
+          (error) => console.log(error),
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              console.log("File available at", downloadURL);
+              setImageURL(downloadURL)
+            });
+          }
+        );
+      };
+
     async function addItems(e) {
         e.preventDefault();
         let formData = new FormData()
-        formData.append('image', image)
+        formData.append('image', imageURL)
         formData.append('name', itemName)
-        formData.append('ingredients', itemComment)
+        formData.append('ingredients', itemIngredients)
         formData.append('recipe', recipe)
-
+        uploadFiles(image);
+        setProgress(0)
         try {   
             if(!editItemData){
                 setSubmitted(true)
@@ -85,8 +113,8 @@ function Form() {
                     <textarea name="" id="comment" cols="20" rows="5" 
                         placeholder="Enter Ingredients..." 
                         className= 'input-text-area' 
-                        value={itemComment}
-                        onChange={(e) => setItemComment(e.target.value)}
+                        value={itemIngredients}
+                        onChange={(e) => setItemIngredients(e.target.value)}
                         ></textarea>
                 </div>
                 <div className="input-control">
@@ -109,6 +137,8 @@ function Form() {
                         className= 'image-input'
                         onChange={(e) => setImage(e.target.files[0])}
                         />
+                    <p>Uploading done {progress}%</p>
+
                 </div>
                 <button  className="submit-btn">Add Item</button>
             </form>

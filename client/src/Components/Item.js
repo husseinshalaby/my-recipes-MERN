@@ -5,7 +5,6 @@ import deleteIcon from '../img/delete.svg';
 import edit from '../img/edit.svg';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
-import { Card,Button } from 'react-bootstrap';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 
@@ -30,48 +29,38 @@ function Item({item, getList, editItem, update}) {
             </div>
         )
     }
-    // const renderImage =() => {
-    //     if(!item.image) return null
-    //     if (item.image){
-    //         const Image = require(`../img/${item.image}`) 
-    //         return (
-    //             <img src={Image} className='image'/> 
-    //         )
-    //     }
-    // }
  
-        return (
-            <ItemStyled  data-aos ='fade-up'>
-                <Link className = "itemName" to={`/list/${item._id}`}>
-                    <div className="icon-document">
-                        <img src={document} alt="" />
-                    </div>
-                    <div className="text-con">
-                        <div className="left-text">
-                            <h3>Title</h3>
-                            <p>{item.name}</p>
-                        </div>
-                        <div className="right-text">
-                            <h3>Ingredients</h3>
-                            <p>{item.ingredients}</p>
-                        </div>
-                        <div className="left-text">
-                            <h3>Recipe</h3>
-                            <p>{item.recipe}</p>
-                        </div>
-                        <div className="right-text">
-                            <h3>Image</h3>
-                            {/* {renderImage()} */}
-                        </div>
-                    </div>
-                </Link>
-                { renderUpdateButton()}
-                <div className="delete" onClick={deleteItem}>
-                    <img src={deleteIcon} alt="" />
+    return (
+        <ItemStyled  data-aos ='fade-up'>
+            <Link className = "itemName" to={`/list/${item._id}`}>
+                <div className="icon-document">
+                    <img src={document} alt="" />
                 </div>
-            </ItemStyled>
-        )
-    // }
+                <div className="text-con">
+                    <div className="left-text">
+                        <h3>Title</h3>
+                        <p>{item.name}</p>
+                    </div>
+                    <div className="right-text">
+                        <h3>Ingredients</h3>
+                        <p>{item.ingredients}</p>
+                    </div>
+                    <div className="left-text">
+                        <h3>Recipe</h3>
+                        <p>{item.recipe}</p>
+                    </div>
+                    <div className="right-text">
+                        <h3>Image</h3>
+                        <img src={item.image} className='image'/> 
+                    </div>
+                </div>
+            </Link>
+            { renderUpdateButton()}
+            <div className="delete" onClick={deleteItem}>
+                <img src={deleteIcon} alt="" />
+            </div>
+        </ItemStyled>
+    )
  
 }
 

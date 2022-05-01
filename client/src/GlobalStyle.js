@@ -8,10 +8,7 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Poppins', sans-serif;
         font-size: 1.1rem;
     }
-    // body{
-    //     background-color: #27AE60;
-        
-    // }
+
     input[type="text"]::-webkit-input-placeholder {
         color: white;
         opacity: .7;

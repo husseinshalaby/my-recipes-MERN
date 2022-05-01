@@ -43,15 +43,7 @@ const handleEditItem = (item) => {
     if (toHome === true) {
         return <Navigate to='/'/>
     }
-    // const renderImage =() => {
-    //     if(!item.image) return null
-    //     if (item.image){
-    //         const Image = require(`../img/${item.image}`) 
-    //         return (
-    //             <img src={Image} className='image'/> 
-    //         )
-    //     }
-    // }
+
     return (
 
         <RecipeStyled>
@@ -71,10 +63,10 @@ const handleEditItem = (item) => {
                         <h3>Recipe</h3>
                         <p>{item.recipe}</p>
                     </div>
-                    {/* <div className="right-text">
+                    <div className="right-text">
                         <h3>Image</h3>
-                        {renderImage()}
-                </div> */}
+                        <img src={item.image} className='image'/> 
+                </div>
             </div>
             <div className="edit" onClick={() => handleEditItem(item)}>
                 <img src={edit} alt="" />
