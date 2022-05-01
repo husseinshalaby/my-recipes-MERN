@@ -75,8 +75,8 @@ function Form() {
         );
       };
     const handleForm = (e) => {
-        if(!editItemData){
-            const file = e.target[3].files[0]
+        const file = e.target[3].files[0]
+        if(file){
             uploadFiles(file);
         }
         else {
