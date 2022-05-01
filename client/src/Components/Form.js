@@ -62,16 +62,22 @@ function Form() {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               console.log("File available at", downloadURL);
               setImage(downloadURL)
+              addItems()
             });
           }
         );
       };
-
-    async function addItems(e) {
+    const handleForm = (e) => {
         console.log('e',e)
         const file = e.target[3].files[0]
         uploadFiles(file);
         e.preventDefault();
+    }
+    async function addItems() {
+        // console.log('e',e)
+        // const file = e.target[3].files[0]
+        // uploadFiles(file);
+        // e.preventDefault();
         let formData = new FormData()
         formData.append('image', image)
         formData.append('name', itemName)
@@ -94,7 +100,7 @@ function Form() {
     const insertItems = () =>{
         return <div className="Texteditor">
             <form 
-            onSubmit={addItems}
+            onSubmit={handleForm}
             >
                 <div className="input-control">
                 <label htmlFor="name" >
@@ -136,7 +142,7 @@ function Form() {
                     <input type="file" id="image" 
                         placeholder="Enter image..." 
                         className= 'image-input'
-                        onChange={(e) => setImage(e.target.files[0])}
+                        // onChange={(e) => setImage(e.target.files[0])}
                         />
                     <span>Uploading {progress}%</span>
 
