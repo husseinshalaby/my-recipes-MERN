@@ -22,6 +22,11 @@ function Form() {
             editItem(location.state.data)
         }
     }, [])
+    useEffect(() =>{
+        if(imageUploaded === true ){
+           addItems()
+        }
+    }, [imageUploaded])
 
     useEffect(() => {
         setItemName('');
@@ -44,7 +49,7 @@ function Form() {
         setEditItemData(itemsData);
     }
 
-    const uploadFiles = async(file) => {
+    const uploadFiles = (file) => {
         
         if (!file) return;
         const sotrageRef = ref(storage, `files/${file.name}`);
@@ -62,26 +67,24 @@ function Form() {
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               console.log("File available at", downloadURL);
-              await setImage(downloadURL)
-            //   setImageUploaded(true)
+              setImage(downloadURL)
             console.log('image', image)
-
-              addItems()
+                setImageUploaded(true)
             });
           }
         );
       };
     const handleForm = (e) => {
-        console.log('e',e)
-        const file = e.target[3].files[0]
-        uploadFiles(file);
+        if(!editItemData){
+            const file = e.target[3].files[0]
+            uploadFiles(file);
+        }
+        else {
+            addItems()
+        }
         e.preventDefault();
     }
     async function addItems() {
-        // console.log('e',e)
-        // const file = e.target[3].files[0]
-        // uploadFiles(file);
-        // e.preventDefault();
         let formData = new FormData()
         formData.append('image', image)
         formData.append('name', itemName)
@@ -111,7 +114,6 @@ function Form() {
                     Title
                 </label>
                     <input type="text" id="name" 
-                        placeholder="Enter Name..."
                         className= 'input-text' 
                         value={itemName} 
                         onChange={(e) => setItemName(e.target.value)}
@@ -122,7 +124,6 @@ function Form() {
                     Ingredients
                 </label>
                     <textarea name="" id="comment" cols="20" rows="5" 
-                        placeholder="Enter Ingredients..." 
                         className= 'input-text-area' 
                         value={itemIngredients}
                         onChange={(e) => setItemIngredients(e.target.value)}
@@ -133,7 +134,6 @@ function Form() {
                     Recipe
                 </label>
                     <textarea name="" id="recipe" cols="10" rows="5" 
-                        placeholder="Enter Recipe..." 
                         className= 'input-text-area' 
                         value={recipe}
                         onChange={(e) => setRecipe(e.target.value)}
@@ -144,9 +144,7 @@ function Form() {
                     Image
                 </label>
                     <input type="file" id="image" 
-                        placeholder="Enter image..." 
                         className= 'image-input'
-                        // onChange={(e) => setImage(e.target.files[0])}
                         />
                     <span>Uploading {progress}%</span>
 
