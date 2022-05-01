@@ -22,11 +22,16 @@ function Form() {
             editItem(location.state.data)
         }
     }, [])
+
+    useEffect(()=>{
+        addItems()
+    }, [image])
     
     useEffect(() => {
         setItemName('');
         setItemIngredients('');
         setRecipe('');
+        setImage('')
       }, [submitted])
 
     useEffect(() =>{
@@ -62,7 +67,8 @@ function Form() {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               console.log("File available at", downloadURL);
               setImage(downloadURL)
-              addItems()
+            //   addItems()
+            console.log('image', image)
             });
           }
         );
