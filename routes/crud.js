@@ -13,7 +13,6 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  // reject a file
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
     cb(null, true);
   } else {
@@ -41,7 +40,7 @@ router.post('/', upload.single('image'), async (request, response) => {
     name: request.body.name,
     ingredients: request.body.ingredients,
     recipe: request.body.recipe,
-    image: request.file? request.file.filename: null,
+    image: request.body.image
   });
 
   try {
@@ -57,7 +56,8 @@ router.patch("/:id", upload.single('image'),(req, res, next) => {
     name: req.body.name,
     ingredients: req.body.ingredients,
     recipe: req.body.recipe,
-    image: req.file ? req.file.filename: null,
+    image: req.body.image,
+
   }
     Crud.findByIdAndUpdate(req.params.id, crud)
     .then(updatedBlog => {
