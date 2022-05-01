@@ -16,7 +16,7 @@ function Form() {
     const [submitted, setSubmitted] = useState(false)
     const location = useLocation()
     const [progress, setProgress] = useState(0)
-    const [imageURL, setImageURL] = useState('')
+    const [imageUploaded, setImageUploaded] = useState(false)
     useEffect(() =>{
         if(location.state){
             editItem(location.state.data)
@@ -25,7 +25,7 @@ function Form() {
 
     useEffect(()=>{
         addItems()
-    }, [image])
+    }, [imageUploaded])
     
     useEffect(() => {
         setItemName('');
@@ -67,6 +67,7 @@ function Form() {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               console.log("File available at", downloadURL);
               setImage(downloadURL)
+              setImageUploaded(true)
             //   addItems()
             console.log('image', image)
             });
