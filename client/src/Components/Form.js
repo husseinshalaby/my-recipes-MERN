@@ -23,9 +23,9 @@ function Form() {
         }
     }, [])
 
-    useEffect(()=>{
-        addItems()
-    }, [imageUploaded])
+    // useEffect(()=>{
+    //    
+    // }, [imageUploaded])
     
     useEffect(() => {
         setItemName('');
@@ -66,7 +66,7 @@ function Form() {
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               console.log("File available at", downloadURL);
-              setImage(downloadURL)
+              setImage(downloadURL, () =>  addItems())
               setImageUploaded(true)
             //   addItems()
             console.log('image', image)
